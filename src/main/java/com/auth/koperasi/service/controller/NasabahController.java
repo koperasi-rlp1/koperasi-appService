@@ -28,6 +28,16 @@ public class NasabahController {
         }
     }
 
+    @PostMapping(name = "/faseSatu")
+    public ResponseEntity<?> faseSatu(@RequestBody NasabahDTO.NasabahDaftar value){
+        try {
+            Integer response = service.faseSatu(value);
+            return ResponseEntity.ok(response);
+        } catch (SQLException dae) {
+            return new ResponseEntity<>(dae.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping(name = "/getDataByNip")
     public ResponseEntity<?> getDataByNip(@RequestParam Integer nip){
         try{

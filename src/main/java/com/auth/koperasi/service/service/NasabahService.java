@@ -7,6 +7,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,4 +24,23 @@ public class NasabahService {
         return dao.getDataNasabahByNip(nip);
     }
 
+    public Boolean checkNipRegistered(Integer nip){
+        List<NasabahDTO.DataNasabah> data = dao.find(nip);
+        if(data.isEmpty()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Integer faseSatu(NasabahDTO.NasabahDaftar value) throws SQLException{
+        Boolean isChecked = checkNipRegistered(value.getNip());
+        if(isChecked == false){
+            return 99;
+        } else {
+            value.setIdStatusKeanggotaan(1);
+            dao.save(value);
+            return 100;
+        }
+    }
 }
