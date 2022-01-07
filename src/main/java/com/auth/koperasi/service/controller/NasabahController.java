@@ -3,6 +3,7 @@ package com.auth.koperasi.service.controller;
 import com.auth.koperasi.service.dto.NasabahDTO;
 import com.auth.koperasi.service.service.NasabahService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,17 @@ public class NasabahController {
             Integer response = service.faseSatu(value);
             return ResponseEntity.ok(response);
         } catch (SQLException dae) {
+            return new ResponseEntity<>(dae.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping(name = "/faseDua")
+    public ResponseEntity<?> faseDua(@RequestBody NasabahDTO.NasabahDaftar value){
+        try {
+            service.faseDua(value);
+            Optional<NasabahDTO.DataNasabah> data = service.getDataNasabahByNip(value.getNip());
+            return ResponseEntity.ok(data);
+        } catch (DataAccessException dae) {
             return new ResponseEntity<>(dae.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

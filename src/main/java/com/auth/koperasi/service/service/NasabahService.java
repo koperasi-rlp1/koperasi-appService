@@ -2,7 +2,9 @@ package com.auth.koperasi.service.service;
 
 import com.auth.koperasi.service.dao.NasabahDao;
 import com.auth.koperasi.service.dto.NasabahDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class NasabahService {
 
     @Autowired
@@ -43,4 +46,10 @@ public class NasabahService {
             return 100;
         }
     }
+
+    public void faseDua(NasabahDTO.NasabahDaftar value) throws DataAccessException{
+        value.setIdStatusKeanggotaan(2);
+        dao.update(value);
+    }
+
 }
