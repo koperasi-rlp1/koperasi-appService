@@ -9,8 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -19,16 +22,6 @@ public class NasabahController {
 
     @Autowired
     private NasabahService service;
-
-//    @PostMapping(name = "/save")
-//    public ResponseEntity<?> save(@RequestBody NasabahDTO.NasabahDaftar value){
-//        try {
-//            NasabahDTO.NasabahDaftar save = service.save(value);
-//            return ResponseEntity.ok(save);
-//        } catch (SQLException dae) {
-//            return new ResponseEntity<>(dae.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
 
     @PostMapping(name = "/faseSatu", produces = {})
     public ResponseEntity<?> faseSatu(@RequestBody NasabahDTO.NasabahDaftar value){
@@ -40,10 +33,10 @@ public class NasabahController {
         }
     }
 
-    @PutMapping(name = "/faseDua")
+    @PutMapping(name = "/updateFaseRegistrasi")
     public ResponseEntity<?> faseDua(@RequestBody NasabahDTO.NasabahDaftar value){
         try {
-            service.faseDua(value);
+            service.naikFase(value);
             Optional<NasabahDTO.DataNasabah> data = service.getDataNasabahByNip(value.getNip());
             return ResponseEntity.ok(data);
         } catch (DataAccessException dae) {
@@ -58,6 +51,21 @@ public class NasabahController {
             return ResponseEntity.ok(data);
         } catch (EmptyResultDataAccessException dae) {
             return new ResponseEntity<>(dae.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/verifikasiPembayaran")
+    public ResponseEntity<Map<String, Object>> uploadFile(@RequestParam("file") MultipartFile file) {
+        String message = null;
+        Map<String, Object> pesan = new HashMap<>();
+        try {
+            String namaFile = service.sendVerif(file);
+            pesan.put("pesan", "uploaded the file successfully: " + namaFile);
+            pesan.put("file", namaFile);
+            return ResponseEntity.ok().body(pesan);
+        } catch (Exception exception) {
+            pesan.put("pesan", "cannot input file");
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(pesan);
         }
     }
 }
