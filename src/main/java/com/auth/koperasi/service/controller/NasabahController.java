@@ -7,29 +7,30 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("/api/nasabah-procedure")
 public class NasabahController {
 
     @Autowired
     private NasabahService service;
 
-    @PostMapping(name = "/save")
-    public ResponseEntity<?> save(@RequestBody NasabahDTO.NasabahDaftar value){
-        try {
-            NasabahDTO.NasabahDaftar save = service.save(value);
-            return ResponseEntity.ok(save);
-        } catch (SQLException dae) {
-            return new ResponseEntity<>(dae.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+//    @PostMapping(name = "/save")
+//    public ResponseEntity<?> save(@RequestBody NasabahDTO.NasabahDaftar value){
+//        try {
+//            NasabahDTO.NasabahDaftar save = service.save(value);
+//            return ResponseEntity.ok(save);
+//        } catch (SQLException dae) {
+//            return new ResponseEntity<>(dae.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
-    @PostMapping(name = "/faseSatu")
+    @PostMapping(name = "/faseSatu", produces = {})
     public ResponseEntity<?> faseSatu(@RequestBody NasabahDTO.NasabahDaftar value){
         try {
             Integer response = service.faseSatu(value);

@@ -36,7 +36,7 @@ public class NasabahService {
         }
     }
 
-    public Integer faseSatu(NasabahDTO.NasabahDaftar value) throws SQLException{
+    public Integer faseSatu(NasabahDTO.NasabahDaftar value) throws SQLException {
         Boolean isChecked = checkNipRegistered(value.getNip());
         if(isChecked == false){
             return 99;
