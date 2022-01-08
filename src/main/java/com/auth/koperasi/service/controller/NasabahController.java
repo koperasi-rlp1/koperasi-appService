@@ -45,7 +45,7 @@ public class NasabahController {
     }
 
     @GetMapping(name = "/getDataByNip")
-    public ResponseEntity<?> getDataByNip(@RequestParam Integer nip){
+    public ResponseEntity<?> getDataByNip(@RequestParam String nip){
         try{
             Optional<NasabahDTO.DataNasabah> data = service.getDataNasabahByNip(nip);
             return ResponseEntity.ok(data);

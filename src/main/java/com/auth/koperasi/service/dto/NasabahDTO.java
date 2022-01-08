@@ -12,7 +12,7 @@ public class NasabahDTO {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class NasabahDaftar{
-        private Integer nip;
+        private String nip;
         private String idBackup;
         private String namaNasabah;
         private String jabatan;
@@ -31,7 +31,7 @@ public class NasabahDTO {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class DataNasabah {
-        private Integer nip;
+        private String nip;
         private String namaNasabah;
         private String idBackup;
         private String email;

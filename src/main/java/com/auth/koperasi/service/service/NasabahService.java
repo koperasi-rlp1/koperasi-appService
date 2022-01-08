@@ -34,11 +34,11 @@ public class NasabahService {
         return dao.save(value);
     }
 
-    public Optional<NasabahDTO.DataNasabah> getDataNasabahByNip(Integer nip) throws EmptyResultDataAccessException{
+    public Optional<NasabahDTO.DataNasabah> getDataNasabahByNip(String nip) throws EmptyResultDataAccessException{
         return dao.getDataNasabahByNip(nip);
     }
 
-    public Boolean checkNipRegistered(Integer nip){
+    public Boolean checkNipRegistered(String nip){
         List<NasabahDTO.DataNasabah> data = dao.find(nip);
         if(data.isEmpty()){
             return true;
