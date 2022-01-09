@@ -20,7 +20,7 @@ public class StatusKeanggotaanDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     public List<StatusKeanggotaan> findAll() throws EmptyResultDataAccessException {
-        String baseQuery = "SELECT \"ID\" AS id, \"KETERANGAN\" as keterangan FROM \"STATUS_KEANGGOTAAN\"";
+        String baseQuery = "SELECT \"ID\" AS id, \"KETERANGAN\" as keterangan FROM \"TM_STATUS_KEANGGOTAAN\"";
 
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
 

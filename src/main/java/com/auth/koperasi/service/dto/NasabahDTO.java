@@ -38,6 +38,7 @@ public class NasabahDTO {
         private String noHp;
         private String jabatan;
         private String unitOperasional;
+        private Integer idStatusKeanggotaan;
         private String fileBuktiPembayaran;
         private Timestamp createdDate;
     }
