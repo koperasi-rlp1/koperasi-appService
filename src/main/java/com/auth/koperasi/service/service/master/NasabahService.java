@@ -1,4 +1,4 @@
-package com.auth.koperasi.service.service;
+package com.auth.koperasi.service.service.master;
 
 import com.auth.koperasi.service.dao.NasabahDao;
 import com.auth.koperasi.service.dto.NasabahDTO;

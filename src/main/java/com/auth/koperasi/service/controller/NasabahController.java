@@ -1,7 +1,7 @@
 package com.auth.koperasi.service.controller;
 
 import com.auth.koperasi.service.dto.NasabahDTO;
-import com.auth.koperasi.service.service.NasabahService;
+import com.auth.koperasi.service.service.master.NasabahService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
