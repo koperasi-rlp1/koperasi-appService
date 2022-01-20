@@ -6,11 +6,12 @@ import com.auth.koperasi.service.auth.model.NasabahLogin;
 import com.auth.koperasi.service.auth.model.NasabahResponse;
 import com.auth.koperasi.service.dto.NasabahDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -67,5 +68,26 @@ public class AuthController {
         return ResponseEntity.ok().body(nasabahResponse);
     }
 
+
+    @PostMapping("/checking")
+    public ResponseEntity<?> checkingActive(@RequestBody String token){
+        try{
+            NasabahCheck data = login.getNipByToken(token);
+            return ResponseEntity.ok().body(data);
+        } catch (EmptyResultDataAccessException e){
+            return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping(path = "/logout/{token}")
+    public ResponseEntity<?> logout(@PathVariable("token") String token){
+        try{
+            login.logout(token);
+            return new ResponseEntity<>(null, HttpStatus.OK);
+        } catch (DataAccessException e){
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }

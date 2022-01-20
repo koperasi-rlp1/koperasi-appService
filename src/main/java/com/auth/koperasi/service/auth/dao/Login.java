@@ -41,6 +41,25 @@ public class Login {
         return dataNasabah;
     }
 
+    public NasabahCheck getNipByToken(String token){
+        String baseQuery = "SELECT \"NIP\", \"SINCE\" FROM \"TA_NASABAH_LOGIN\" WHERE \"TOKEN_KEY\" = :token";
+
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue("token", token);
+
+        NasabahCheck dataNasabah = namedParameterJdbcTemplate.queryForObject(baseQuery, parameterSource, new RowMapper<NasabahCheck>() {
+            @Override
+            public NasabahCheck mapRow(ResultSet resultSet, int i) throws SQLException {
+                NasabahCheck data = new NasabahCheck();
+                data.setNip(resultSet.getString("NIP"));
+                data.setSince(resultSet.getTimestamp("SINCE"));
+                return data;
+            }
+        });
+
+        return dataNasabah;
+    }
+
     public List<NasabahCheck> checkLogin(String nip){
         String baseQuery = "SELECT * FROM \"TA_NASABAH_LOGIN\" WHERE \"NIP\" = :nip";
 
@@ -95,6 +114,15 @@ public class Login {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue("nip", nasabahCheck.getNip());
         parameterSource.addValue("token", nasabahCheck.getTokenKey());
+
+        namedParameterJdbcTemplate.update(baseQuery, parameterSource);
+    }
+
+    public void logout(String token){
+        String baseQuery="DELETE FROM \"TA_NASABAH_LOGIN\" WHERE \"TOKEN_KEY\" = :token";
+
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue("token", token);
 
         namedParameterJdbcTemplate.update(baseQuery, parameterSource);
     }
