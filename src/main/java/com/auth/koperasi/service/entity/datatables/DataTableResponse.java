@@ -9,9 +9,9 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DataTableResponse {
+public class DataTableResponse<T> {
 
-    private List<?> data;
+    private List<T> data;
     private Integer draw;
-    private Integer recordFiltered, recordTotal;
+    private Long recordFiltered, recordTotal;
 }

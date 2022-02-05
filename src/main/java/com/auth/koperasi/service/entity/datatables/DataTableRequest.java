@@ -9,9 +9,9 @@ import java.util.Map;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DataTableRequest {
+public class DataTableRequest<T> {
 
     private Integer draw, start, length, sortCol;
-    private Map<String, Object> extraParam;
+    private T extraParam;
     private String sortDir;
 }

@@ -13,11 +13,13 @@ public class SimpananWajibDTO {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class DataSimpanan{
-        private Integer noTransaksi;
+        private Integer no;
+        private Long id;
+        private Long noTransaksi;
         private Date tanggal;
-        private Time waktu;
         private Long nominalTransaksi;
         private String idNasabah;
+        private String deskripsi;
     }
 
     @Data
