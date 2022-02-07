@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class TransaksiApprovalDTO {
@@ -18,5 +19,6 @@ public class TransaksiApprovalDTO {
         private String idNasabah;
         private String buktiPembayaran;
         private String deskripsi;
+        private LocalDate tanggal;
     }
 }

@@ -19,7 +19,7 @@ public class TransaksiDao {
 
     public Long datatablesApprovalCount(DataTableRequest<TransaksiDTO.DataTransaksi> request){
         String baseQuery = "select count(*) as row_count " +
-                "from \"TN_SIPM_APPROVAL\" " +
+                "from \"TN_TRANSAKSI_APPROVAL\" " +
                 "where 1 = 1 ";
 
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
@@ -29,9 +29,9 @@ public class TransaksiDao {
         parameterSource.addValue("idNasabah", request.getExtraParam().getIdNasabah());
 
         query.append(" and \"JENIS_TRANSAKSI\" = :jenisTransaksi ");
-        parameterSource.addValue("jenisTransasksi", request.getExtraParam().getJenisTransaksi());
+        parameterSource.addValue("jenisTransaksi", request.getExtraParam().getJenisTransaksi());
 
-        query.append(" order by :sortCol desc");
+        query.append(" order by :sortCol asc");
         parameterSource.addValue("sortCol", request.getSortCol()+1);
 //        parameterSource.addValue("sortDir", request.getSortDir());
 
@@ -49,7 +49,7 @@ public class TransaksiDao {
                 "\"ID\" as idApproval,\n" +
                 "\"ID_NASABAH\" as idNasabah,\n" +
                 "\"NOMINAL_TRANSAKSI\" as nominalTransaksi,\n" +
-                "\"TANGGAL\" as tanggal,\n" +
+                "to_char(\"TANGGAL\", 'dd/mm/yyyy') as tanggal,\n" +
                 "\"DESKRIPSI\" as deskripsi,\n" +
                 "\"BUKTI_TRANSAKSI\" as buktiPembayaran\n" +
                 "from \"TN_TRANSAKSI_APPROVAL\"\n" +
@@ -63,9 +63,9 @@ public class TransaksiDao {
 
 
         query.append(" and \"JENIS_TRANSAKSI\" = :jenisTransaksi ");
-        parameterSource.addValue("jenisTransasksi", request.getExtraParam().getJenisTransaksi());
+        parameterSource.addValue("jenisTransaksi", request.getExtraParam().getJenisTransaksi());
 
-        query.append(" order by :sortCol desc");
+        query.append(" order by :sortCol asc");
         parameterSource.addValue("sortCol", request.getSortCol()+1);
 //        parameterSource.addValue("sortDir", request.getSortDir());
 

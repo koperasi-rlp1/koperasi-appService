@@ -16,7 +16,7 @@ public class TransaksiDTO {
         private Integer id;
         private Integer idApproval;
         private String jenisTransaksi;
-        private Date tanggal;
+        private String tanggal;
         private Time waktu;
         private Long nominalTransaksi;
         private String idNasabah;

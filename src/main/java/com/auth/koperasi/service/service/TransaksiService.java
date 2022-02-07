@@ -17,6 +17,7 @@ public class TransaksiService {
     public DataTableResponse<TransaksiDTO.DataTransaksi> datatablesApproval(DataTableRequest<TransaksiDTO.DataTransaksi> request){
         DataTableResponse<TransaksiDTO.DataTransaksi> data = new DataTableResponse<>();
         data.setData(dao.datatablesApproval(request));
+        System.out.println(data.getData());
         data.setRecordTotal(dao.datatablesApprovalCount(request));
         data.setRecordFiltered(dao.datatablesApprovalCount(request));
         data.setDraw(request.getDraw());
