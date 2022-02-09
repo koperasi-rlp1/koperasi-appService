@@ -26,7 +26,7 @@ public class NasabahDao {
     public NasabahDTO.NasabahDaftar save(NasabahDTO.NasabahDaftar nasabah) throws SQLException{
         String baseQuery = "INSERT INTO \"NASABAH\"(NIP, \"NAMA_NASABAH\", \"EMAIL\", \"NO_HP\", \"JABATAN\", \"UNIT_OPERASIONAL\", \n" +
                 "\"USERNAME\", \"PASSWORD\", \"ID_BACKUP\", \"ID_STATUS\", \"BUKTI_PEMBAYARAN\", \"CREATED_DATE\") VALUES(:nip, :namaNasabah, :email, \n" +
-                ":noHp, :jabatan, :unitOperasional, :username, :password, :idBackup, :idStatusKeanggotaan, :buktiPembayaran, :createdDate)";
+                ":noHp, :jabatan, :unitOperasional, :username, :password, :idBackup, :idStatusKeanggotaan, :buktiPembayaran)";
 
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue("nip", nasabah.getNip());
@@ -40,7 +40,6 @@ public class NasabahDao {
         parameterSource.addValue("idStatusKeanggotaan", nasabah.getIdStatusKeanggotaan());
         parameterSource.addValue("noHp", nasabah.getNoHp());
         parameterSource.addValue("buktiPembayaran", nasabah.getFileBuktiPembayaran());
-        parameterSource.addValue("createdDate", nasabah.getCreatedDate());
 
         this.namedParameterJdbcTemplate.update(baseQuery, parameterSource);
 
@@ -151,10 +150,10 @@ public class NasabahDao {
             parameterSource.addValue("buktiPembayaran", value.getFileBuktiPembayaran());
         }
 
-        if(value.getCreatedDate() != null){
-            buildInQuery.append(", \"CREATED_DATE\" = :createdDate");
-            parameterSource.addValue("createdDate", value.getCreatedDate());
-        }
+//        if(value.getCreatedDate() != null){
+//            buildInQuery.append(", \"CREATED_DATE\" = :createdDate");
+//            parameterSource.addValue("createdDate", value.getCreatedDate());
+//        }
 
         buildInQuery.append(" WHERE \"NIP\" = :nipInduk");
         parameterSource.addValue("nipInduk", value.getNip());

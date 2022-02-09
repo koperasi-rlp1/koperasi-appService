@@ -1,6 +1,8 @@
 package com.auth.koperasi.service.service;
 
+import com.auth.koperasi.service.dao.SimpananWajibDao;
 import com.auth.koperasi.service.dao.TransaksiApprovalDao;
+import com.auth.koperasi.service.dto.SimpananWajibDTO;
 import com.auth.koperasi.service.dto.TransaksiApprovalDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,6 +20,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 

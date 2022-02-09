@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class NasabahDTO {
 
@@ -21,10 +22,10 @@ public class NasabahDTO {
         private String username;
         private String password;
         private String unitOperasional;
-        private String statusKeanggotaan;
         private Integer idStatusKeanggotaan;
         private String fileBuktiPembayaran;
-        private Timestamp createdDate;
+        private String jenisKelamin;
+        private Date tanggalLahir;
     }
 
     @Data

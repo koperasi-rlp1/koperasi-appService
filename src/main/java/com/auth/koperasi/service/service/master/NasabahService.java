@@ -31,6 +31,9 @@ public class NasabahService {
     private String basePath;
 
     public NasabahDTO.NasabahDaftar save(NasabahDTO.NasabahDaftar value) throws SQLException{
+        String id = UUID.randomUUID().toString();
+        value.setIdBackup(id);
+        value.setIdStatusKeanggotaan(1);
         return dao.save(value);
     }
 
