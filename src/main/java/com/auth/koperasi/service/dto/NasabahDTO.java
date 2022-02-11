@@ -44,4 +44,11 @@ public class NasabahDTO {
         private Timestamp createdDate;
     }
 
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Message{
+        private String message;
+    }
+
 }

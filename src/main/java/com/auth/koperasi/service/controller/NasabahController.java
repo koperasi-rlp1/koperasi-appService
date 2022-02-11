@@ -23,17 +23,41 @@ public class NasabahController {
     @Autowired
     private NasabahService service;
 
-    @PostMapping(name = "/faseSatu", produces = {})
-    public ResponseEntity<?> faseSatu(@RequestBody NasabahDTO.NasabahDaftar value){
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody NasabahDTO.NasabahDaftar value){
         try {
-            Integer response = service.faseSatu(value);
+            NasabahDTO.NasabahDaftar response = service.save(value);
             return ResponseEntity.ok(response);
         } catch (SQLException dae) {
             return new ResponseEntity<>(dae.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PutMapping(name = "/updateFaseRegistrasi")
+    @GetMapping("/checking/{nip}/{username}")
+    public ResponseEntity<?> checkNip(@PathVariable("nip") String nip, @PathVariable("username") String username){
+        try{
+            NasabahDTO.Message response = service.checkingNipOrUser(nip, username);
+            return ResponseEntity.ok(response);
+        } catch (EmptyResultDataAccessException e){
+            return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/verifikasiPembayaran")
+    public ResponseEntity<Map<String, Object>> uploadFile(@RequestParam("file") MultipartFile file) {
+        String message = null;
+        Map<String, Object> pesan = new HashMap<>();
+        try {
+            String namaFile = service.uploadFile(file);
+            pesan.put("file", namaFile);
+            return ResponseEntity.ok().body(pesan);
+        } catch (Exception exception) {
+            pesan.put("pesan", "cannot input file");
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(pesan);
+        }
+    }
+
+    @PutMapping("/updateFaseRegistrasi")
     public ResponseEntity<?> faseDua(@RequestBody NasabahDTO.NasabahDaftar value){
         try {
             service.naikFase(value);
@@ -51,21 +75,6 @@ public class NasabahController {
             return ResponseEntity.ok(data);
         } catch (EmptyResultDataAccessException dae) {
             return new ResponseEntity<>(dae.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @PostMapping("/verifikasiPembayaran")
-    public ResponseEntity<Map<String, Object>> uploadFile(@RequestParam("file") MultipartFile file) {
-        String message = null;
-        Map<String, Object> pesan = new HashMap<>();
-        try {
-            String namaFile = service.sendVerif(file);
-            pesan.put("pesan", "uploaded the file successfully: " + namaFile);
-            pesan.put("file", namaFile);
-            return ResponseEntity.ok().body(pesan);
-        } catch (Exception exception) {
-            pesan.put("pesan", "cannot input file");
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(pesan);
         }
     }
 }

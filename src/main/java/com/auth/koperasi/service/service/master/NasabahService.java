@@ -41,6 +41,22 @@ public class NasabahService {
         return dao.getDataNasabahByNip(nip);
     }
 
+    public NasabahDTO.Message checkingNipOrUser(String nip, String username){
+        List<NasabahDTO.DataNasabah> testNip = dao.getNip(nip);
+        List<NasabahDTO.NasabahDaftar> testUserName = dao.getUserName(username);
+        NasabahDTO.Message message = new NasabahDTO.Message();
+        if(!testNip.isEmpty()){
+            message.setMessage("NIP Sudah digunakan");
+            return message;
+        } else if(!testUserName.isEmpty()){
+            message.setMessage("Username Sudah Digukanan");
+            return message;
+        } else {
+            message.setMessage("Data Unique");
+            return message;
+        }
+    }
+
     public Boolean checkNipRegistered(String nip){
         List<NasabahDTO.DataNasabah> data = dao.find(nip);
         if(data.isEmpty()){
@@ -67,6 +83,19 @@ public class NasabahService {
     }
 
     public String sendVerif(MultipartFile file){
+        try{
+            Path root = Paths.get(basePath);
+            String[] fileFrags = file.getOriginalFilename().split("\\.");
+            String extension = fileFrags[fileFrags.length - 1];
+            String uuid = UUID.randomUUID().toString() + "." + extension;
+            Files.copy(file.getInputStream(), root.resolve(uuid));
+            return uuid;
+        } catch (IOException e){
+            throw new RuntimeException("could not store the file. error : " + e.getMessage());
+        }
+    }
+
+    public String uploadFile(MultipartFile file){
         try{
             Path root = Paths.get(basePath);
             String[] fileFrags = file.getOriginalFilename().split("\\.");

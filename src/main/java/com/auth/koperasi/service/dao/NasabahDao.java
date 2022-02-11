@@ -24,9 +24,10 @@ public class NasabahDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     public NasabahDTO.NasabahDaftar save(NasabahDTO.NasabahDaftar nasabah) throws SQLException{
-        String baseQuery = "INSERT INTO \"NASABAH\"(NIP, \"NAMA_NASABAH\", \"EMAIL\", \"NO_HP\", \"JABATAN\", \"UNIT_OPERASIONAL\", \n" +
-                "\"USERNAME\", \"PASSWORD\", \"ID_BACKUP\", \"ID_STATUS\", \"BUKTI_PEMBAYARAN\", \"CREATED_DATE\") VALUES(:nip, :namaNasabah, :email, \n" +
-                ":noHp, :jabatan, :unitOperasional, :username, :password, :idBackup, :idStatusKeanggotaan, :buktiPembayaran)";
+        String baseQuery = "INSERT INTO \"NASABAH\"(\"NIP\", \"NAMA_NASABAH\", \"EMAIL\", \"NO_HP\", \"JABATAN\", \"UNIT_OPERASIONAL\", \n" +
+                "\"USERNAME\", \"PASSWORD\", \"ID_BACKUP\", \"ID_STATUS_KEANGGOTAAN\", \"BUKTI_PEMBAYARAN\", \"JENIS_KELAMIN\", \"TANGGAL_LAHIR\") " +
+                "VALUES(:nip, :namaNasabah, :email, \n" +
+                ":noHp, :jabatan, :unitOperasional, :username, :password, :idBackup, :idStatusKeanggotaan, :buktiPembayaran, :jenisKelamin, :tanggalLahir)";
 
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue("nip", nasabah.getNip());
@@ -40,10 +41,47 @@ public class NasabahDao {
         parameterSource.addValue("idStatusKeanggotaan", nasabah.getIdStatusKeanggotaan());
         parameterSource.addValue("noHp", nasabah.getNoHp());
         parameterSource.addValue("buktiPembayaran", nasabah.getFileBuktiPembayaran());
+        parameterSource.addValue("jenisKelamin", nasabah.getJenisKelamin());
+        parameterSource.addValue("tanggalLahir", nasabah.getTanggalLahir());
 
         this.namedParameterJdbcTemplate.update(baseQuery, parameterSource);
 
         return nasabah;
+    }
+
+
+    public List<NasabahDTO.DataNasabah> getNip(String nip){
+        String baseQuery = "SELECT \"NIP\" FROM \"NASABAH\" WHERE \"NIP\" = :nip";
+
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue("nip", nip);
+
+        return namedParameterJdbcTemplate.query(baseQuery, parameterSource, new RowMapper<NasabahDTO.DataNasabah>() {
+            @Override
+            public NasabahDTO.DataNasabah mapRow(ResultSet resultSet, int i) throws SQLException {
+                NasabahDTO.DataNasabah data = new NasabahDTO.DataNasabah();
+                data.setNip(resultSet.getString("NIP"));
+
+                return data;
+            }
+        });
+    }
+
+    public List<NasabahDTO.NasabahDaftar> getUserName(String nip){
+        String baseQuery = "SELECT \"USERNAME\" FROM \"NASABAH\" WHERE \"NIP\" = :nip";
+
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue("nip", nip);
+
+        return namedParameterJdbcTemplate.query(baseQuery, parameterSource, new RowMapper<NasabahDTO.NasabahDaftar>() {
+            @Override
+            public NasabahDTO.NasabahDaftar mapRow(ResultSet resultSet, int i) throws SQLException {
+                NasabahDTO.NasabahDaftar data = new NasabahDTO.NasabahDaftar();
+                data.setNamaNasabah("USERNAME");
+
+                return data;
+            }
+        });
     }
 
     public Optional<NasabahDTO.DataNasabah> getDataNasabahByNip(String nip) throws EmptyResultDataAccessException{
