@@ -33,6 +33,16 @@ public class NasabahController {
         }
     }
 
+    @PostMapping("/checkSyaratPinjam")
+    public ResponseEntity<?> checkPinjaman(@RequestBody NasabahDTO.NasabahDaftar value){
+        try {
+            String response = service.checkNasabahPinjam(value);
+            return ResponseEntity.ok(response);
+        } catch (SQLException dae) {
+            return new ResponseEntity<>(dae.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping("/checking/{nip}/{username}")
     public ResponseEntity<?> checkNip(@PathVariable("nip") String nip, @PathVariable("username") String username){
         try{

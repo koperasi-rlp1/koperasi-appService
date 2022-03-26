@@ -103,6 +103,7 @@ public class NasabahDao {
                 data.setIdBackup(resultSet.getString("ID_BACKUP"));
                 data.setFileBuktiPembayaran(resultSet.getString("BUKTI_PEMBAYARAN"));
                 data.setCreatedDate(resultSet.getTimestamp("CREATED_DATE"));
+                data.setIdStatusKeanggotaan(resultSet.getInt("ID_STATUS_KEANGGOTAAN"));
                 return data;
             }
         });

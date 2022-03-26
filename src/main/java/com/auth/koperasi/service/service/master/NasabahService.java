@@ -15,6 +15,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -35,6 +37,22 @@ public class NasabahService {
         value.setIdBackup(id);
         value.setIdStatusKeanggotaan(1);
         return dao.save(value);
+    }
+
+    public String checkNasabahPinjam(NasabahDTO.NasabahDaftar value) throws SQLException{
+        Optional<NasabahDTO.DataNasabah> data = dao.getDataNasabahByNip(value.getNip());
+        LocalDate localDate = LocalDate.now();
+        LocalDateTime localDateTime = data.get().getCreatedDate().toLocalDateTime();
+        if(localDate.getYear() > localDateTime.getYear()){
+            if(localDate.getMonthValue() >= localDateTime.getMonthValue()){
+                if(localDate.getDayOfMonth() >= localDateTime.getDayOfMonth()){
+                    value.setIdStatusKeanggotaan(5);
+                    dao.update(value);
+                    return "Nasabah Telah Memenuhi Syarat Untuk Melakukan Pinjaman";
+                }
+            }
+        }
+        return "Akun Harus Melewati Tahun Pertama Untuk Melakukan Pinjaman";
     }
 
     public Optional<NasabahDTO.DataNasabah> getDataNasabahByNip(String nip) throws EmptyResultDataAccessException{
