@@ -1,9 +1,11 @@
 package com.auth.koperasi.service.dao;
 
+import com.auth.koperasi.service.dao.query.QueryTransaksi;
 import com.auth.koperasi.service.dto.SimpananSukaRelaDTO;
 import com.auth.koperasi.service.dto.TransaksiDTO;
 import com.auth.koperasi.service.entity.datatables.DataTableRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -75,4 +77,15 @@ public class TransaksiDao {
 
         return namedParameterJdbcTemplate.query(query.toString(), parameterSource, new BeanPropertyRowMapper<>(TransaksiDTO.DataTransaksi.class));
     }
+
+    public TransaksiDTO.DataSaldoNasabah findDataSaldoNasabah(String nip) throws EmptyResultDataAccessException{
+        String baseQuery = QueryTransaksi.QUERY_SALDO_NASABAH;
+
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue("nip", nip);
+
+        return namedParameterJdbcTemplate.queryForObject(baseQuery, parameterSource, new BeanPropertyRowMapper<>(TransaksiDTO.DataSaldoNasabah.class));
+    }
+
+
 }

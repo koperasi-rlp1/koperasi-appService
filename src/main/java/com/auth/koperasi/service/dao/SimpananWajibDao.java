@@ -18,7 +18,7 @@ public class SimpananWajibDao {
 
     public Long datatablesCount(DataTableRequest<SimpananWajibDTO.DataSimpanan> request){
         String baseQuery = "select count(*) as row_count " +
-                "from \"TN_SIPM_WAJIB\" tsw left join \"TN_TRANSAKSI\" tt on tsw.\"ID_TRANSAKSI\" = tt.\"ID\" " +
+                "from \"TN_SIMP_WAJIB\" tsw left join \"TN_TRANSAKSI\" tt on tsw.\"ID_TRANSAKSI\" = tt.\"ID\" " +
                 "where 1 = 1 ";
 
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
@@ -46,9 +46,9 @@ public class SimpananWajibDao {
                 "tsw.\"ID_TRANSAKSI\" as noTransaksi,\n" +
                 "tsw.\"ID_NASABAH\" as idNasabah,\n" +
                 "tsw.\"NOMINAL_TRANSAKSI\" as nominalTransaksi,\n" +
-                "tsw.\"TANGGAL\" as tanggal,\n" +
+                "to_char(tsw.\"TANGGAL\", 'dd/mm/yyyy') as tanggal,\n" +
                 "tt.\"DESKRIPSI\" as deskripsi\n" +
-                "from \"TN_SIPM_WAJIB\" tsw left join \"TN_TRANSAKSI\" tt on tsw.\"ID_TRANSAKSI\" = tt.\"ID\" " +
+                "from \"TN_SIMP_WAJIB\" tsw left join \"TN_TRANSAKSI\" tt on tsw.\"ID_TRANSAKSI\" = tt.\"ID\" " +
                 "where 1 = 1 ";
 
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
@@ -74,9 +74,9 @@ public class SimpananWajibDao {
                 "tsw.\"ID_TRANSAKSI\" as noTransaksi,\n" +
                 "tsw.\"ID_NASABAH\" as idNasabah,\n" +
                 "tsw.\"NOMINAL_TRANSAKSI\" as nominalTransaksi,\n" +
-                "tsw.\"TANGGAL\" as tanggal,\n" +
+                "to_char(tsw.\"TANGGAL\", 'dd/mm/yyyy') as tanggal,\n" +
                 "tt.\"DESKRIPSI\" as deskripsi\n" +
-                "from \"TN_SIPM_WAJIB\" tsw left join \"TN_TRANSAKSI\" tt on tsw.\"ID_TRANSAKSI\" = tt.\"ID\" " +
+                "from \"TN_SIMP_WAJIB\" tsw left join \"TN_TRANSAKSI\" tt on tsw.\"ID_TRANSAKSI\" = tt.\"ID\" " +
                 "where 1 = 1 ";
 
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();

@@ -24,4 +24,18 @@ public class TransaksiDTO {
         private String deskripsi;
         private String statusApproval;
     }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class DataSaldoNasabah{
+        private String nip;
+        private String namaNasabah;
+        private Long saldoWajib;
+        private Long saldoSukaRela;
+        private Long trWajib;
+        private Long trSukaRela;
+        private Long saldoAkhir;
+        private Long simpananPokok;
+    }
 }

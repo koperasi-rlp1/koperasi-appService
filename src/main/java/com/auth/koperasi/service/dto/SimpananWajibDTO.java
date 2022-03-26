@@ -16,7 +16,7 @@ public class SimpananWajibDTO {
         private Integer no;
         private Long id;
         private Long noTransaksi;
-        private Date tanggal;
+        private String tanggal;
         private Long nominalTransaksi;
         private String idNasabah;
         private String deskripsi;

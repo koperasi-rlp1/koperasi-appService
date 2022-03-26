@@ -6,6 +6,7 @@ import com.auth.koperasi.service.dto.TransaksiDTO;
 import com.auth.koperasi.service.entity.datatables.DataTableRequest;
 import com.auth.koperasi.service.entity.datatables.DataTableResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,5 +23,9 @@ public class TransaksiService {
         data.setRecordFiltered(dao.datatablesApprovalCount(request));
         data.setDraw(request.getDraw());
         return data;
+    }
+
+    public TransaksiDTO.DataSaldoNasabah findDataSaldoNasabah(String nip) throws EmptyResultDataAccessException{
+        return dao.findDataSaldoNasabah(nip);
     }
 }
