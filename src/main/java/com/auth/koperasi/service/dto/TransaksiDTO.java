@@ -38,4 +38,18 @@ public class TransaksiDTO {
         private Long saldoAkhir;
         private Long simpananPokok;
     }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class DataPinjamanNasabah{
+        private String nip;
+        private String namaNasabah;
+        private Long jumlahPinjaman;
+        private Long pinjamanSelesai;
+        private Long pinjamanBelumSelesai;
+        private Long totalUangPinjam;
+        private Long totalUangBayar;
+        private Long sisaPinjamBelumBayar;
+    }
 }

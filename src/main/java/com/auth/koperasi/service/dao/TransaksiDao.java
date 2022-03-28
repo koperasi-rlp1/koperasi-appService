@@ -88,4 +88,15 @@ public class TransaksiDao {
     }
 
 
+    public TransaksiDTO.DataPinjamanNasabah findDataPinjamanNasabah(String nip) throws EmptyResultDataAccessException{
+        String baseQuery = QueryTransaksi.QUERY_PINJAMAN_NASABAH;
+
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue("nip", nip);
+
+        return namedParameterJdbcTemplate.queryForObject(baseQuery, parameterSource, new BeanPropertyRowMapper<>(TransaksiDTO.DataPinjamanNasabah.class));
+    }
+
+
+
 }

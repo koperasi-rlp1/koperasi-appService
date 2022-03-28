@@ -28,4 +28,8 @@ public class TransaksiService {
     public TransaksiDTO.DataSaldoNasabah findDataSaldoNasabah(String nip) throws EmptyResultDataAccessException{
         return dao.findDataSaldoNasabah(nip);
     }
+
+    public TransaksiDTO.DataPinjamanNasabah findDataPinjamanNasabah(String nip) throws EmptyResultDataAccessException{
+        return dao.findDataPinjamanNasabah(nip);
+    }
 }

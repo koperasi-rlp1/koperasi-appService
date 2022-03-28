@@ -35,4 +35,14 @@ public class TransaksiController {
             return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/data-pinjaman/{nip}")
+    public ResponseEntity<?> findDataPinjamanNasabah(@PathVariable String nip){
+        try{
+            TransaksiDTO.DataPinjamanNasabah data = service.findDataPinjamanNasabah(nip);
+            return ResponseEntity.ok().body(data);
+        }catch (EmptyResultDataAccessException e){
+            return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
