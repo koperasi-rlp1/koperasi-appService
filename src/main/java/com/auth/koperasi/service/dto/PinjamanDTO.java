@@ -20,6 +20,8 @@ public class PinjamanDTO {
         private Time waktu;
         private Integer bulanBayar;
         private String tujuanPinjam;
+        private String nip;
+        private String namaNasabah;
     }
 
     @Data
@@ -35,6 +37,8 @@ public class PinjamanDTO {
         private Date tanggalTolak;
         private String alasanTolak;
         private Long idTransaksi;
+        private String nip;
+        private String namaNasabah;
     }
 
     @Data
@@ -51,6 +55,9 @@ public class PinjamanDTO {
         private Date tanggalApprove;
         private String adminApprove;
         private Long idTransaksi;
+        private String tujuanPinjam;
+        private String nip;
+        private String namaNasabah;
     }
 
     @Data
