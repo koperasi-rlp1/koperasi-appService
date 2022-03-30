@@ -198,7 +198,7 @@ public class PinjamanDao {
                 "tp.\"ID\" as id,\n" +
                 "tp.\"ID_NASABAH\" as idNasabah,\n" +
                 "tp.\"TOTAL_PINJAMAN\" as totalPinjaman,\n" +
-                "tp.\"SISA_PINJAMAN\" as sisaPinjaman,\n" +
+                "tp.\"SISA_PINJAMAN\" as sisaPinjaan,\n" +
                 "tp.\"BULAN_BAYAR\" as bulanBayar,\n" +
                 "tp.\"SISA_BULAN_BAYAR\" as sisaBulanBayar,\n" +
                 "tp.\"ID_APPROVAL\" as idApproval,\n" +
